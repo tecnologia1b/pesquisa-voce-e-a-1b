@@ -8,7 +8,7 @@
   color-scheme:light;
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{height:100%}
+html,body{min-height:100%}
 body{margin:0;font-family:var(--sans);background:var(--fundo);color:var(--carvao)}
 button,input,textarea{font-family:inherit}
 .tag-line{display:inline-flex;align-items:center;gap:12px;font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:14px}
