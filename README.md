@@ -1,5 +1,14 @@
 # Pesquisa "Você e a 1B"
 
+## Status (28/10/2026)
+
+No ar e testado ponta a ponta: celular → Firestore → dashboard → Sheets, tudo funcionando com dados reais.
+
+- `pesquisa.1b.org.br` publicado via GitHub Pages (repo `tecnologia1b/pesquisa-voce-e-a-1b`), HTTPS com certificado válido.
+- Firestore, Auth, regras e Apps Script (Sheets) configurados e publicados.
+- Dashboard testado logado, com gráficos, filtros e cruzamentos.
+- Pendente antes do sábado: teste de carga com celulares reais (ver checklist), imprimir QR de reserva.
+
 ## Links
 
 | Link | Para quê |
@@ -38,12 +47,20 @@ Dashboard → card "Exportar" → **Baixar Excel** (3 abas: Respostas, Resumo, A
 ## Checklist da véspera
 
 - [ ] Teste no Wi-Fi do templo com 3-5 celulares reais (link com `?sessao=teste`)
-- [ ] Login do dashboard testado
+- [x] Login do dashboard testado
 - [ ] Login do `qr.html` testado
 - [ ] Segredo do Sheets salvo no navegador do operador
 - [ ] QR impresso de reserva (`dashboard.html` → Baixar QR)
-- [ ] Sessão de teste limpa (ver acima)
+- [x] Sessão de teste limpa (ver acima)
 - [ ] `config/pesquisa.status` = `encerrada` antes de sair (só o operador abre na hora certa)
+
+## Deploy e manutenção
+
+- **Site (GitHub Pages):** `git push` na `main` já publica. Repo: `github.com/tecnologia1b/pesquisa-voce-e-a-1b`.
+- **Firestore rules:** `firebase deploy --only firestore:rules` (não usar o editor do Console — trava/duplica chave ao colar).
+- **Apps Script (Sheets):** mexeu em `apps-script/Code.gs`? Precisa de 2 passos — `cd apps-script && clasp push` (sobe o código) **e** `clasp deploy --deploymentId <id> --description "v1"` (atualiza a versão que o Web App realmente roda; `clasp push` sozinho não é suficiente). ID do deployment ativo: `AKfycbzii9V8Z7oe02TrM1_lB4rnm0n0kVYqPd2stHiAaIJ86Ts-oJUEKhZRYnPdffHj6gw8Sw`.
+- **Esqueceu a senha do dashboard:** não tem link "esqueci a senha" na tela — manda reset via API do Firebase (`identitytoolkit accounts:sendOobCode`, `requestType: PASSWORD_RESET`) com a `apiKey` pública do `js/config.js`.
+- **Scripts CDN:** se algum gráfico sumir e o console acusar `Chart is not defined`, confere se a versão do Chart.js em `dashboard.html` ainda existe no cdnjs — cdnjs remove versões antigas do catálogo sem aviso (já aconteceu com a 4.4.4, hoje está na 4.6.1).
 
 ## Decisões técnicas (resumo)
 
