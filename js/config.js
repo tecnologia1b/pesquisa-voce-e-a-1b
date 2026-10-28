@@ -8,5 +8,5 @@ export const firebaseConfig = {
   appId: "1:472609177020:web:78862e6e410dffff6dffb9",
 };
 
-// URL do Web App do Apps Script (Sheets). Preenchido depois de publicar o script (passo 4).
-export const SHEETS_WEBAPP_URL = "";
+// URL do Web App do Apps Script (Sheets).
+export const SHEETS_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzii9V8Z7oe02TrM1_lB4rnm0n0kVYqPd2stHiAaIJ86Ts-oJUEKhZRYnPdffHj6gw8Sw/exec";
