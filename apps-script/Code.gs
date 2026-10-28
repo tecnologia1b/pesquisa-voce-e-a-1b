@@ -68,6 +68,11 @@ function colunas() {
   return cols;
 }
 
+function fuga(v) {
+  // evita injeção de fórmula no Sheets (resposta aberta começando com =, +, -, @)
+  return typeof v === "string" && /^[=+\-@\t\r]/.test(v) ? "'" + v : v;
+}
+
 function abaRespostas(ss) {
   let sh = ss.getSheetByName("Respostas");
   if (!sh) sh = ss.insertSheet("Respostas");
@@ -95,12 +100,12 @@ function upsertRespostas(ss, lote) {
       const v = d[p.id];
       if (p.tipo === "grade") {
         const arr = Array.isArray(v) ? v : [];
-        p.itens.forEach((_, i) => { linha[col] = arr[i] != null ? arr[i] : ""; col++; });
+        p.itens.forEach((_, i) => { linha[col] = fuga(arr[i] != null ? arr[i] : ""); col++; });
       } else if (p.tipo === "multipla") {
-        linha[col] = Array.isArray(v) ? v.join("; ") : "";
+        linha[col] = fuga(Array.isArray(v) ? v.join("; ") : "");
         col++;
       } else {
-        linha[col] = v != null ? v : "";
+        linha[col] = fuga(v != null ? v : "");
         col++;
       }
     });

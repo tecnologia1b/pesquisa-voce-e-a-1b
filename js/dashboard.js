@@ -61,7 +61,7 @@ function iniciarPainel() {
   });
 
   onSnapshot(collection(db, RESPOSTAS_COL), (snap) => {
-    respostas = snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
+    respostas = snap.docs.map((d) => ({ ...d.data(), uid: d.id }));
     recalcular();
     if (sessao !== "teste") agendarSync();
   });
