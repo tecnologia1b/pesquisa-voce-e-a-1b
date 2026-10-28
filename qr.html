@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QR · Você e a 1B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body class="carvao telao">
+  <div id="login" class="login-box">
+    <span class="tag-line">Operador</span>
+    <h2 style="margin:0 0 16px">Entrar</h2>
+    <input id="login-email" type="email" placeholder="E-mail" autocomplete="username">
+    <input id="login-senha" type="password" placeholder="Senha" autocomplete="current-password">
+    <button class="btn btn-verde" id="login-btn" style="width:100%">Entrar</button>
+    <div class="erro" id="login-erro"></div>
+  </div>
+
+  <div id="exibe" style="display:none">
+    <img class="logo" src="img/logo-1b-branca.png" alt="Primeira Batista">
+    <div id="qr"></div>
+    <div class="url">pesquisa.1b.org.br</div>
+    <div class="contagem"><span id="contagem-n">0</span> pessoas já responderam</div>
+  </div>
+
+  <script type="module" src="js/qr.js"></script>
+</body>
+</html>

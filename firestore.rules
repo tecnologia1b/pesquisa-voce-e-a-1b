@@ -1,0 +1,71 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function ehOperador() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/operadores/$(request.auth.uid));
+    }
+
+    function pesquisaAberta() {
+      return get(/databases/$(database)/documents/config/pesquisa).data.status == "aberta";
+    }
+
+    // Participante: só o próprio doc, só com a pesquisa aberta, nunca depois de concluído.
+    // Duas coleções: "respostas" (oficial) e "respostas_teste" (sessão de teste, ?sessao=teste) — mesmas regras, nunca se misturam.
+    match /respostas/{uid} {
+      allow get: if ehOperador() || (request.auth != null && request.auth.uid == uid);
+      allow list: if ehOperador();
+
+      allow create: if request.auth != null &&
+        request.auth.uid == uid &&
+        pesquisaAberta() &&
+        request.resource.data.origem in ["culto", "online"] &&
+        request.resource.data.status == "em_andamento";
+
+      allow update: if request.auth != null &&
+        request.auth.uid == uid &&
+        pesquisaAberta() &&
+        resource.data.status != "concluida" &&
+        request.resource.data.origem == resource.data.origem &&
+        request.resource.data.status in ["em_andamento", "concluida"];
+    }
+
+    match /respostas_teste/{uid} {
+      allow get: if ehOperador() || (request.auth != null && request.auth.uid == uid);
+      allow list: if ehOperador();
+
+      allow create: if request.auth != null &&
+        request.auth.uid == uid &&
+        pesquisaAberta() &&
+        request.resource.data.origem in ["culto", "online"] &&
+        request.resource.data.status == "em_andamento";
+
+      allow update: if request.auth != null &&
+        request.auth.uid == uid &&
+        pesquisaAberta() &&
+        resource.data.status != "concluida" &&
+        request.resource.data.origem == resource.data.origem &&
+        request.resource.data.status in ["em_andamento", "concluida"];
+    }
+
+    match /operadores/{uid} {
+      allow get: if request.auth != null && request.auth.uid == uid;
+      allow list, write: if false; // cadastro só via console
+    }
+
+    match /config/pesquisa {
+      allow get: if true; // celular/telão precisam ler status sem login
+      allow write: if ehOperador();
+    }
+
+    match /contador/total {
+      allow get: if ehOperador();
+      // incremento de 1 em 1, nunca decrementa nem muda pra outro valor
+      allow update: if request.resource.data.n == resource.data.n + 1 &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["n"]);
+      allow create, delete: if false;
+    }
+  }
+}

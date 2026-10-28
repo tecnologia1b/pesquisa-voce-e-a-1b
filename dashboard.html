@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard · Você e a 1B</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/estilo.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body class="carvao">
+  <div id="login" class="login-box">
+    <span class="tag-line">Operador</span>
+    <h2 style="margin:0 0 16px">Entrar</h2>
+    <input id="login-email" type="email" placeholder="E-mail" autocomplete="username">
+    <input id="login-senha" type="password" placeholder="Senha" autocomplete="current-password">
+    <button class="btn btn-verde" id="login-btn" style="width:100%">Entrar</button>
+    <div class="erro" id="login-erro"></div>
+  </div>
+
+  <div id="painel" style="display:none">
+    <header class="topo-carvao">
+      <img src="img/logo-1b-branca.png" alt="Primeira Batista">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="selo-sessao" id="selo-sessao">—</span>
+        <button class="btn btn-out" id="btn-sair" style="padding:8px 16px;font-size:.68rem">Sair</button>
+      </div>
+    </header>
+
+    <div class="grid-topo">
+      <div class="card"><div class="stat-num" id="st-concluidas">0</div><div class="stat-lbl">Concluídas</div></div>
+      <div class="card"><div class="stat-num" id="st-andamento">0</div><div class="stat-lbl">Em andamento</div></div>
+      <div class="card"><div class="stat-num" id="st-culto">0</div><div class="stat-lbl">No culto</div></div>
+      <div class="card"><div class="stat-num" id="st-online">0</div><div class="stat-lbl">Online</div></div>
+    </div>
+
+    <div class="grid-topo" style="grid-template-columns:1fr 1fr">
+      <div class="card">
+        <h3>Status da pesquisa</h3>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span id="status-pesquisa" style="font-weight:800;font-size:1.1rem">—</span>
+          <button class="btn btn-verde" id="btn-abrir" style="padding:10px 18px">Abrir</button>
+          <button class="btn btn-out" id="btn-encerrar" style="padding:10px 18px">Encerrar</button>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Google Sheets</h3>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <span id="sheets-status">—</span>
+          <button class="btn btn-out" id="btn-ressync" style="padding:10px 18px">Ressincronizar tudo</button>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:8px">
+          <input id="sheets-segredo" type="password" placeholder="Segredo do Sheets" style="flex:1;background:var(--carvao);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:8px;color:var(--offwhite)">
+          <button class="btn btn-out" id="btn-salvar-segredo" style="padding:8px 14px;font-size:.68rem">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-topo" style="grid-template-columns:1fr 1fr">
+      <div class="card"><h3>QR do culto</h3><button class="btn btn-verde" id="btn-baixar-qr">Baixar QR (PNG)</button><div id="qr-oculto" style="display:none"></div></div>
+      <div class="card"><h3>Exportar</h3><div style="display:flex;gap:10px"><button class="btn btn-out" id="btn-excel">Baixar Excel</button><button class="btn btn-out" id="btn-json">Baixar JSON</button></div></div>
+    </div>
+
+    <div class="filtros" id="filtros"></div>
+    <div class="cruzamentos" id="cruzamentos"></div>
+    <div class="perguntas" id="perguntas"></div>
+  </div>
+
+  <script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

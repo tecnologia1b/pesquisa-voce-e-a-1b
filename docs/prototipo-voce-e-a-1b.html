@@ -1,0 +1,219 @@
+<title>Você e a 1B</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Layout: uma pergunta por tela, cartão de celular centralizado; cabeçalho carvão + corpo claro (identidade 1B) */
+:root{
+  --carvao:#232323;--carvao-2:#1a1a1a;
+  --verde:#5E9C82;--verde-escuro:#4d826b;--verde-claro:#7bb59d;--verde-suave:rgba(94,156,130,.1);
+  --offwhite:#F2F2F2;--branco:#FFFFFF;--cinza-texto:#5a5a5a;--cinza-suave:#8a8a8a;--cinza-linha:rgba(0,0,0,.09);
+  --desab:#b8c9c1;--fundo:#e7e8e6;
+  --sans:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:var(--sans);background:var(--fundo);color:var(--carvao);
+  display:flex;justify-content:center;padding-left:max(0px,env(safe-area-inset-left,0px));padding-right:max(0px,env(safe-area-inset-right,0px))}
+button,input,textarea{font-family:inherit}
+.app{width:100%;max-width:480px;min-height:100%;display:flex;flex-direction:column;background:var(--offwhite);box-shadow:0 0 40px rgba(0,0,0,.06)}
+.cab{background:var(--carvao);color:var(--branco);padding:16px max(20px,env(safe-area-inset-left,0px)) 14px max(20px,env(safe-area-inset-right,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:2}
+.marca{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.5px;font-size:1rem}
+.selo{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--branco);display:grid;place-items:center;font-size:.72rem;font-weight:900;letter-spacing:-.5px}
+.sim{font-size:.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--verde-claro);border:1px solid rgba(123,181,157,.45);border-radius:50px;padding:5px 10px;white-space:nowrap}
+.prog{height:3px;background:rgba(0,0,0,.06)}
+.prog i{display:block;height:100%;width:0;background:var(--verde);transition:width .4s cubic-bezier(.32,.72,0,1)}
+.corpo{flex:1;padding:26px 22px 12px;display:flex;flex-direction:column;min-height:0}
+.tag-line{display:inline-flex;align-items:center;gap:12px;font-size:.68rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--verde);margin-bottom:14px}
+.tag-line::before{content:'';display:inline-block;width:32px;height:1.5px;background:var(--verde)}
+.cont{font-size:.74rem;color:var(--cinza-suave);font-weight:600;margin-bottom:6px;font-variant-numeric:tabular-nums}
+h1{font-size:1.75rem;font-weight:800;letter-spacing:-1.2px;line-height:1.08;margin:0 0 14px;text-wrap:balance}
+h2{font-size:1.32rem;font-weight:800;letter-spacing:-.6px;line-height:1.18;margin:0 0 6px;text-wrap:balance}
+.instr{font-size:.86rem;color:var(--cinza-texto);margin:0 0 16px;line-height:1.45}
+p.txt{font-size:1rem;line-height:1.6;color:var(--cinza-texto);margin:0 0 12px}
+.aviso{background:var(--branco);border:1px solid var(--cinza-linha);border-radius:16px;padding:14px 16px;font-size:.86rem;line-height:1.5;color:var(--cinza-texto);margin-top:8px}
+.aviso b{color:var(--carvao)}
+.opcs{display:flex;flex-direction:column;gap:8px}
+.opc{text-align:left;background:var(--branco);border:1.5px solid var(--cinza-linha);border-radius:16px;padding:14px 16px;font-size:.95rem;font-weight:500;color:var(--carvao);cursor:pointer;transition:border-color .2s,background .2s;line-height:1.3;display:flex;align-items:center;gap:12px}
+.opc .mk{flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid #c9cfcc;display:grid;place-items:center;transition:all .2s}
+.opcs.multi .opc .mk{border-radius:6px}
+.opc.on{border-color:var(--verde);background:var(--verde-suave);font-weight:700}
+.opc.on .mk{background:var(--verde);border-color:var(--verde)}
+.opc.on .mk::after{content:'';width:8px;height:8px;border-radius:inherit;background:var(--branco)}
+.opcs.multi .opc.on .mk::after{width:10px;height:6px;border-radius:0;background:none;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg) translate(1px,-1px)}
+.opc.off{opacity:.42}
+.opc .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--offwhite);display:grid;place-items:center;font-weight:800;font-size:.95rem;font-variant-numeric:tabular-nums;transition:all .2s}
+.opc.on .n{background:var(--verde);color:var(--branco)}
+.opc:focus-visible,.btn:focus-visible{outline:2px solid var(--verde-escuro);outline-offset:2px}
+.contador{font-size:.78rem;font-weight:700;color:var(--verde-escuro);margin:10px 2px 0}
+.item{font-size:1.04rem;font-weight:600;line-height:1.4;margin:6px 0 14px;padding:16px;background:var(--branco);border-radius:16px;border:1px solid var(--cinza-linha)}
+textarea{width:100%;min-height:150px;font-size:1rem;border:1.5px solid var(--cinza-linha);border-radius:16px;padding:14px;background:var(--branco);color:var(--carvao);resize:vertical;line-height:1.5}
+textarea:focus{outline:none;border-color:var(--verde)}
+.dica{font-size:.74rem;color:var(--cinza-suave);margin-top:6px;text-align:right;font-variant-numeric:tabular-nums}
+.rodape{display:flex;gap:10px;padding:12px 22px calc(20px + env(safe-area-inset-bottom,0px));position:sticky;bottom:0;background:linear-gradient(to top,var(--offwhite) 75%,rgba(242,242,242,0))}
+.btn{flex:1;display:inline-flex;align-items:center;justify-content:center;padding:16px 18px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;border-radius:50px;border:0;cursor:pointer;transition:background .25s,transform .25s,box-shadow .25s}
+.btn-verde{background:var(--verde);color:var(--branco)}
+.btn-verde:hover{background:var(--verde-escuro);transform:translateY(-2px);box-shadow:0 12px 30px rgba(94,156,130,.35)}
+.btn-verde:disabled{background:var(--desab);cursor:not-allowed;transform:none;box-shadow:none}
+.btn-out{background:transparent;border:1.5px solid var(--carvao);color:var(--carvao);flex:0 0 auto;padding-inline:22px}
+.circ{width:52px;height:52px;border-radius:50%;background:var(--verde);color:var(--branco);display:grid;place-items:center;margin-bottom:22px}
+.resumo{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.resumo details{background:var(--branco);border:1px solid var(--cinza-linha);border-radius:16px;padding:12px 16px}
+.resumo summary{cursor:pointer;font-weight:700;font-size:.9rem}
+.resumo dl{margin:10px 0 0;display:grid;gap:8px}
+.resumo dt{font-size:.78rem;color:var(--cinza-suave);font-weight:600}
+.resumo dd{margin:0;font-size:.88rem;line-height:1.4}
+.fade{animation:fade .35s cubic-bezier(.32,.72,0,1)}
+@keyframes fade{from{opacity:.001;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="app">
+  <header class="cab">
+    <div class="marca"><span class="selo">1B</span>Primeira Batista</div>
+    <span class="sim">Simulação</span>
+  </header>
+  <div class="prog"><i id="barra"></i></div>
+  <main class="corpo" id="corpo"></main>
+  <nav class="rodape" id="rodape"></nav>
+</div>
+
+<script>
+const CONCORDO={1:"Discordo totalmente",2:"Discordo",3:"Nem concordo nem discordo",4:"Concordo",5:"Concordo plenamente"};
+const DESEJO={1:"Nada",2:"Pouco",3:"Mais ou menos",4:"Bastante",5:"Muito"};
+const LIDER=["Líder ou auxiliar de PGM","Supervisor","Coordenador"];
+const Q=[
+ // Quem é você
+ {id:"p1",s:"Quem é você",t:"unica",q:"Qual a sua idade?",o:["12 a 14","15 a 17","18 a 24","25 a 29","30 a 44","45+"]},
+ {id:"p2",s:"Quem é você",t:"unica",q:"Qual o seu papel hoje?",i:"Marque o mais alto.",o:["Frequento os cultos","Participo de PGM","Líder ou auxiliar de PGM","Supervisor","Coordenador","Pastor"]},
+ {id:"p3",s:"Quem é você",t:"unica",q:"De qual rede você participa?",o:["Livres","Flow","Outra","Não participo"]},
+ {id:"p4",s:"Quem é você",t:"unica",q:"Há quanto tempo você frequenta a 1B?",o:["Menos de 1 ano","1 a 3 anos","4 a 10 anos","11 a 15 anos","Mais de 15 anos"]},
+ {id:"p5",s:"Quem é você",t:"unica",q:"Qual frase descreve melhor o seu momento de vida?",o:["Estou na escola","Estou na faculdade ou cursinho","Estou começando a trabalhar","Trabalho e já tenho carreira","Casei ou formei família recentemente","Outro momento"]},
+ // Seu momento e seus anseios
+ {id:"p6",s:"Seu momento",t:"multipla",max:3,q:"Que tipo de programa você sente falta na igreja para o seu momento de vida?",i:"Escolha até 3.",o:["Encontros e retiros da minha idade","Estudo bíblico e discipulado","Orientação para a vida (estudos, carreira, finanças)","Relacionamentos, namoro e família","Saúde emocional","Esporte e lazer","Ação social e missões","Música e artes","Mentoria com alguém mais experiente","Não sinto falta de nada"],ex:["Não sinto falta de nada"]},
+ {id:"p7",s:"Seu momento",t:"escala",lb:DESEJO,q:"O quanto você deseja atividades voltadas para a sua faixa etária?"},
+ {id:"p8",s:"Seu momento",t:"escala",lb:DESEJO,q:"O quanto você deseja atividades junto com pessoas de outras idades?"},
+ {id:"p9",s:"Seu momento",t:"aberta",q:"Que programa ou atividade você gostaria que a igreja tivesse para pessoas da sua idade?"},
+ // Sua fé
+ {id:"p10",s:"Sua fé",t:"multipla",max:3,q:"O que mais te atrai num culto?",i:"Escolha até 3.",o:["Tempo longo de louvor e adoração","Pregação profunda","Pregação prática e direta","Momento de oração e ministração","Ambiente mais intimista","Culto grande e cheio de gente","Testemunhos","Cultos temáticos e especiais"]},
+ {id:"p11",s:"Sua fé",t:"multipla",max:3,q:"Que tipo de movimento ou evento cristão mais te atrai?",i:"Escolha até 3.",o:["Conferências e congressos","Acampamentos e retiros","Vigílias","PGM e grupos pequenos","Festivais e shows gospel","Projetos missionários e sociais","Conteúdo online (pregações, podcasts)"]},
+ {id:"p12",s:"Sua fé",t:"multipla",q:"Onde você mais consome conteúdo cristão fora da igreja?",i:"Pode marcar mais de um.",o:["Instagram","YouTube","TikTok","Spotify ou podcasts","Livros","Quase não consumo"],ex:["Quase não consumo"]},
+ {id:"p13",s:"Sua fé",t:"aberta",q:"Que igrejas, ministérios, pregadores ou movimentos te inspiram?",ph:"Pode citar nomes"},
+ {id:"p14",s:"Sua fé",t:"unica",q:"Com que frequência você lê a Bíblia por conta própria?",o:["Todo dia","Algumas vezes por semana","Algumas vezes por mês","Raramente ou nunca"]},
+ // Você na 1B
+ {id:"p15",s:"Você na 1B",t:"multipla",q:"De quais cultos da 1B você costuma participar?",i:"Pode marcar mais de um.",o:["Sábado 19h","Domingo 8h","Domingo 10h","Domingo 17h","Domingo 19h"]},
+ {id:"p16",s:"Você na 1B",t:"unica",q:"Com que frequência você vem a algum culto da 1B?",o:["Toda semana","2 a 3 vezes por mês","1 vez por mês ou menos"]},
+ {id:"p17",s:"Você na 1B",t:"multipla",max:4,q:"O que mais te faz voltar aos cultos que você frequenta?",i:"Escolha até 4.",o:["Meus amigos estão lá","Minha família vai","Louvor","Pregação","Ambiente","Horário","Sirvo no culto","Meu PGM vai junto"]},
+ {id:"p18",s:"Você na 1B",t:"multipla",max:4,q:"O que mais dificulta você participar de outros cultos e programações da igreja, além dos que já vai?",i:"Escolha até 4.",o:["Horário ou compromissos","Minha família não vai","Não conheço muita gente","Estilo do louvor","Linguagem da pregação","Duração","Sinto que não é pra mim","Já participo o suficiente","Nada dificulta"],ex:["Nada dificulta"]},
+ {id:"p19",s:"Você na 1B",t:"grade",lb:CONCORDO,q:"O quanto você concorda?",it:["Me sinto parte da igreja como um todo.","Conheço pelo nome pessoas mais velhas da igreja.","Tenho alguém mais velho que me inspira na fé.","Eu me sentiria à vontade em qualquer culto da 1B, de qualquer horário.","Gostaria de conviver mais com pessoas de outras idades na igreja."]},
+ {id:"p20",s:"Você na 1B",t:"unica",q:"Quantos adultos da igreja com mais de 40 anos, fora da sua família, você conhece pelo nome?",o:["Nenhum","1 ou 2","3 a 5","6 ou mais"]},
+ {id:"p21",s:"Você na 1B",t:"unica",q:"Nos últimos 3 meses, quantas vezes você conversou de verdade (mais que um “oi”) com um adulto da igreja com mais de 40 anos, fora da sua família?",o:["Nenhuma vez","1 vez","2 a 5 vezes","Mais de 5 vezes"]},
+ {id:"p22",s:"Você na 1B",t:"unica",q:"Se você precisasse de um conselho, tem algum adulto da igreja, fora da sua família e da liderança do seu PGM, que você procuraria?",o:["Sim, já sei quem","Talvez","Não"]},
+ {id:"p23",s:"Você na 1B",t:"multipla",max:3,q:"Que tipo de momento te aproximaria das outras gerações da igreja?",i:"Escolha até 3.",o:["Servir junto em ação social","Discipulado ou mentoria com alguém mais velho","Servir num ministério junto com adultos (louvor, recepção, mídia)","Café ou lanche depois do culto","Eventos especiais com toda a igreja","Cultos especiais com todas as idades juntas","Outro"]},
+ {id:"p24",s:"Você na 1B",t:"aberta",q:"O que você acha que a sua geração precisa aprender com os mais velhos?"},
+ // Liderança
+ {id:"p25",s:"Para a liderança",t:"unica",q:"Dos adolescentes e jovens do seu PGM ou área, quantos também participam de cultos de domingo?",o:["Quase todos","Mais da metade","Menos da metade","Quase nenhum"],se:["p2",LIDER]},
+ {id:"p26",s:"Para a liderança",t:"aberta",q:"Na sua percepção, do que os adolescentes e jovens do seu grupo mais sentem falta na igreja?",se:["p2",LIDER]},
+ {id:"p27",s:"Para a liderança",t:"aberta",q:"Você já viu alguma ação que aproximou os jovens de outras gerações? Qual?",se:["p2",LIDER]},
+ {id:"p28",s:"Para a liderança",t:"aberta",q:"Que apoio você precisaria pra estimular isso no seu grupo?",se:["p2",LIDER]}
+];
+let A={}, pos=-1, sub=0;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const vis=()=>Q.filter(q=>{if(!q.se)return true;const v=A[q.se[0]];return v!=null&&q.se[1].includes(v)});
+function limpar(){Q.forEach(q=>{if(q.se&&!vis().includes(q))delete A[q.id]})}
+const escalaHTML=(lb,sel)=>`<div class="opcs">`+[1,2,3,4,5].map(n=>`<button class="opc ${sel===n?"on":""}" role="radio" aria-checked="${sel===n}" data-n="${n}"><span class="n">${n}</span>${esc(lb[n])}</button>`).join("")+`</div>`;
+
+function render(){
+  const lista=vis(), corpo=$("#corpo"), rod=$("#rodape");
+  corpo.classList.remove("fade");void corpo.offsetWidth;corpo.classList.add("fade");
+  window.scrollTo(0,0);
+  if(pos<0){
+    $("#barra").style.width="0%";
+    corpo.innerHTML=`<span class="tag-line">Pesquisa · 1B</span>
+      <h1>Você e a 1B</h1>
+      <p class="txt">Queremos conhecer melhor você: seu momento de vida, o que você busca na sua fé e como você vive a igreja hoje.</p>
+      <p class="txt">Não tem resposta certa. É anônimo e leva uns 8 minutos.</p>
+      <div class="aviso"><b>Esta é uma simulação.</b> Nenhuma resposta é salva ou enviada. Responda à vontade para ver como funciona e depois mande seu feedback.</div>`;
+    rod.innerHTML=`<button class="btn btn-verde" id="prox">Começar</button>`;
+    $("#prox").onclick=()=>{pos=0;sub=0;render()};return;
+  }
+  if(pos>=lista.length){fim(lista);return}
+  const q=lista[pos], v=A[q.id];
+  const tot=lista.length, at=pos+1;
+  $("#barra").style.width=Math.round(at/tot*100)+"%";
+  let h=`<span class="tag-line">${esc(q.s)}</span><div class="cont">Pergunta ${at} de ${tot}</div><h2>${esc(q.q)}</h2>${q.i?`<p class="instr">${esc(q.i)}</p>`:`<div style="height:12px"></div>`}`;
+  let ok=true, lbl="Próxima";
+  if(q.t==="unica"){
+    h+=`<div class="opcs" role="radiogroup">`+q.o.map(o=>`<button class="opc ${v===o?"on":""}" role="radio" aria-checked="${v===o}" data-o="${esc(o)}"><span class="mk"></span>${esc(o)}</button>`).join("")+`</div>`;
+    ok=v!=null;
+  }else if(q.t==="multipla"){
+    const sel=v||[], cheio=q.max&&sel.length>=q.max;
+    h+=`<div class="opcs multi">`+q.o.map(o=>`<button class="opc ${sel.includes(o)?"on":(cheio?"off":"")}" aria-pressed="${sel.includes(o)}" data-o="${esc(o)}"><span class="mk"></span>${esc(o)}</button>`).join("")+`</div>`;
+    if(q.max)h+=`<div class="contador">${sel.length} de ${q.max} escolhidas</div>`;
+    ok=sel.length>0;
+  }else if(q.t==="escala"){
+    h+=escalaHTML(q.lb,v);ok=v!=null;
+  }else if(q.t==="grade"){
+    const arr=v||Array(q.it.length).fill(null);
+    h+=`<div class="cont">Afirmação ${sub+1} de ${q.it.length}</div><div class="item">${esc(q.it[sub])}</div>`+escalaHTML(q.lb,arr[sub]);
+    ok=arr[sub]!=null;
+  }else if(q.t==="aberta"){
+    h+=`<label for="txt" class="instr" style="margin-bottom:8px">Opcional. Escreva com suas palavras.</label><textarea id="txt" maxlength="600" placeholder="${esc(q.ph||"Escreva aqui")}">${esc(v||"")}</textarea><div class="dica" id="cnt">${(v||"").length}/600</div>`;
+    lbl=(v&&v.trim())?"Próxima":"Pular";
+  }
+  const ultimo=pos===tot-1&&(q.t!=="grade"||sub===q.it.length-1);
+  if(ultimo&&lbl==="Próxima")lbl="Enviar";
+  corpo.innerHTML=h;
+  rod.innerHTML=`<button class="btn btn-out" id="volta">Voltar</button><button class="btn btn-verde" id="prox" ${ok?"":"disabled"}>${lbl}</button>`;
+
+  corpo.querySelectorAll(".opc[data-o]").forEach(b=>b.onclick=()=>{
+    const o=b.dataset.o;
+    if(q.t==="unica"){A[q.id]=o;limpar();render();return}
+    let s=(A[q.id]||[]).slice();
+    if(s.includes(o))s=s.filter(x=>x!==o);
+    else{const ex=q.ex||[];if(ex.includes(o))s=[o];else{s=s.filter(x=>!ex.includes(x));if(q.max&&s.length>=q.max)return;s.push(o)}}
+    if(s.length)A[q.id]=s;else delete A[q.id];render();
+  });
+  corpo.querySelectorAll(".opc[data-n]").forEach(b=>b.onclick=()=>{
+    const n=+b.dataset.n;
+    if(q.t==="escala"){A[q.id]=n}
+    else{const arr=(A[q.id]||Array(q.it.length).fill(null)).slice();arr[sub]=n;A[q.id]=arr}
+    render();
+  });
+  const t=$("#txt");
+  if(t)t.oninput=()=>{A[q.id]=t.value;$("#cnt").textContent=t.value.length+"/600";$("#prox").textContent=t.value.trim()?(ultimo?"Enviar":"Próxima"):"Pular"};
+  $("#volta").onclick=()=>{
+    if(q.t==="grade"&&sub>0){sub--;render();return}
+    pos--; if(pos>=0){const p=vis()[pos];sub=p.t==="grade"?p.it.length-1:0}else sub=0;
+    render();
+  };
+  $("#prox").onclick=()=>{
+    if(q.t==="grade"&&sub<q.it.length-1){sub++;render();return}
+    if(q.t==="aberta"&&!(A[q.id]||"").trim())delete A[q.id];
+    pos++;sub=0;render();
+  };
+}
+
+function fim(lista){
+  $("#barra").style.width="100%";
+  const fmt=(q,v)=>{
+    if(v==null)return"<i>Sem resposta</i>";
+    if(q.t==="grade")return q.it.map((it,k)=>`${esc(it)} <b>${v[k]} · ${esc(q.lb[v[k]])}</b>`).join("<br>");
+    if(q.t==="escala")return `<b>${v} · ${esc(q.lb[v])}</b>`;
+    if(Array.isArray(v))return esc(v.join(", "));
+    return esc(v);
+  };
+  const rows=lista.map((q,k)=>`<dt>${k+1}. ${esc(q.q)}</dt><dd>${fmt(q,A[q.id])}</dd>`).join("");
+  $("#corpo").innerHTML=`<div class="circ"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></div>
+    <span class="tag-line">Fim da simulação</span>
+    <h1>Obrigado por responder</h1>
+    <p class="txt">Na pesquisa real, suas respostas seriam enviadas agora e este celular não poderia responder de novo. Como é uma simulação, nada foi salvo.</p>
+    <p class="txt">Achou alguma pergunta confusa, faltou opção ou o tom não ficou bom? Conta pra quem te mandou o link.</p>
+    <div class="resumo"><details><summary>Ver minhas respostas</summary><dl>${rows}</dl></details></div>`;
+  $("#rodape").innerHTML=`<button class="btn btn-verde" id="denovo">Responder de novo</button>`;
+  $("#denovo").onclick=()=>{A={};pos=-1;sub=0;render()};
+}
+render();
+</script>
