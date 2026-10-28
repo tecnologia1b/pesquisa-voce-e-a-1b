@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, onSnapshot, runTransaction, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, onSnapshot, runTransaction, serverTimestamp, enableIndexedDbPersistence } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 import { firebaseConfig } from "./config.js";
 import { Q, CONCORDO, DESEJO, LIDER } from "./perguntas.js";
 
@@ -55,6 +55,16 @@ async function enviarFinal() {
     enviando = false;
     telaFim();
   } catch (e) {
+    // rede instável pode derrubar a promise no cliente mesmo com a escrita indo pro servidor — confere antes de assustar
+    try {
+      const snap = await getDoc(doc(db, RESPOSTAS_COL, uid));
+      if (snap.exists() && snap.data().status === "concluida") {
+        localStorage.setItem("voce1b_concluido", "1");
+        enviando = false;
+        telaFim();
+        return;
+      }
+    } catch (e2) { /* confirmação falhou também, segue pro alerta normal */ }
     enviando = false;
     render();
     alert("Não deu pra enviar agora. Confira sua internet e tenta de novo.");
@@ -121,7 +131,7 @@ function render() {
 
   corpo.querySelectorAll(".opc[data-o]").forEach((b) => (b.onclick = () => {
     const o = b.dataset.o;
-    if (q.t === "unica") { A[q.id] = o; limpar(); if (!ultimo) { pos++; sub = 0; } salvar(); render(); return; }
+    if (q.t === "unica") { A[q.id] = o; limpar(); salvar(); render(); return; }
     let s = (A[q.id] || []).slice();
     if (s.includes(o)) s = s.filter((x) => x !== o);
     else { const ex = q.ex || []; if (ex.includes(o)) s = [o]; else { s = s.filter((x) => !ex.includes(x)); if (q.max && s.length >= q.max) return; s.push(o); } }
