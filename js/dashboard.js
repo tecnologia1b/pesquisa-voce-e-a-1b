@@ -263,8 +263,8 @@ function montarCruzamentos(base) {
   }).join("<br>");
 
   $("#cruzamentos").innerHTML = `
-    <div class="card"><h3>Percepção × prática</h3><div class="stat-num">${pct(c1, n)}%</div><div class="stat-lbl">${c1} de ${n} concluídas (filtro atual)</div></div>
-    <div class="card"><h3>À vontade × frequência</h3><div class="stat-num">${pct(c2, n)}%</div><div class="stat-lbl">${c2} de ${n} concluídas (filtro atual)</div></div>
+    <div class="card"><h3>Percepção × prática</h3><p class="cruz-desc">Diz se sentir parte da igreja, mas quase não conhece nem conversa com adultos 40+.</p><div class="stat-num">${pct(c1, n)}%</div><div class="stat-lbl">${c1} de ${n} concluídas (filtro atual)</div></div>
+    <div class="card"><h3>À vontade × frequência</h3><p class="cruz-desc">Diz que topa qualquer culto, de qualquer horário, mas na prática só vai ao Sábado 19h.</p><div class="stat-num">${pct(c2, n)}%</div><div class="stat-lbl">${c2} de ${n} concluídas (filtro atual)</div></div>
     <div class="card"><h3>Só sábado, por faixa etária</h3><div style="font-size:.86rem;line-height:1.7">${c3}</div></div>
     <div class="card"><h3>Faixa etária × outras idades (médias)</h3><div style="font-size:.86rem;line-height:1.7">${c4}</div></div>`;
 }

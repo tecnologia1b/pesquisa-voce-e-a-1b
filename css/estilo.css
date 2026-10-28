@@ -80,6 +80,7 @@ body.carvao .btn-out:hover{background:rgba(255,255,255,.06)}
 .card h3{margin:0 0 10px;font-size:.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--verde-claro)}
 .stat-num{font-size:1.9rem;font-weight:800;letter-spacing:-1px}
 .stat-lbl{font-size:.72rem;color:var(--cinza-suave);text-transform:uppercase;letter-spacing:1px}
+.cruz-desc{font-size:.78rem;color:var(--cinza-suave);line-height:1.4;margin:0 0 10px}
 .grid-topo{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;padding:18px 24px}
 .filtros{display:flex;flex-wrap:wrap;gap:10px;padding:0 24px 18px}
 .filtros select,.filtros button{background:var(--carvao-2);color:var(--offwhite);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 14px;font-size:.78rem;cursor:pointer}
