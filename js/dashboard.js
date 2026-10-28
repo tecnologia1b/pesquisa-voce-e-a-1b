@@ -51,9 +51,7 @@ function iniciarPainel() {
   $("#selo-sessao").textContent = sessao === "teste" ? "SESSÃO DE TESTE" : "SESSÃO OFICIAL";
   if (sessao === "teste") $("#selo-sessao").classList.add("teste");
 
-  montarFiltros();
-  montarPerguntas();
-
+  // status e contagens não podem depender do Chart.js (CDN pode falhar) — registra primeiro
   onSnapshot(doc(db, "config", "pesquisa"), (snap) => {
     const status = snap.exists() ? snap.data().status : "encerrada";
     $("#status-pesquisa").textContent = status === "aberta" ? "ABERTA" : "ENCERRADA";
@@ -65,6 +63,9 @@ function iniciarPainel() {
     recalcular();
     if (sessao !== "teste") agendarSync();
   });
+
+  montarFiltros();
+  try { montarPerguntas(); } catch (e) { console.error("montarPerguntas falhou (CDN do Chart.js fora do ar?)", e); }
 
   $("#btn-abrir").onclick = () => setDoc(doc(db, "config", "pesquisa"), { status: "aberta" }, { merge: true });
   let armado = false, armTimer = null;
