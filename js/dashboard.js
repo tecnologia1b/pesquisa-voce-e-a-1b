@@ -125,8 +125,8 @@ function montarFiltros() {
 function aplicaFiltros(lista) {
   return lista.filter((d) => {
     if (filtros.faixa && d.p1 !== filtros.faixa) return false;
-    if (filtros.soLideranca) { if (!LIDER.includes(d.p2)) return false; }
-    else if (filtros.papel && d.p2 !== filtros.papel) return false;
+    if (filtros.soLideranca) { if (!(Array.isArray(d.p2) && d.p2.some((x) => LIDER.includes(x)))) return false; }
+    else if (filtros.papel && !(Array.isArray(d.p2) && d.p2.includes(filtros.papel))) return false;
     if (filtros.rede && d.p3 !== filtros.rede) return false;
     if (filtros.origem && d.origem !== filtros.origem) return false;
     if (filtros.soSabado) { if (!(Array.isArray(d.p15) && d.p15.length === 1 && d.p15[0] === "Sábado 19h")) return false; }

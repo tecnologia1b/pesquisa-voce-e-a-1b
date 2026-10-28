@@ -7,7 +7,7 @@
 
 const PERGUNTAS = [
   { id: "p1", num: 1, texto: "Qual a sua idade?", tipo: "unica" },
-  { id: "p2", num: 2, texto: "Qual o seu papel hoje?", tipo: "unica" },
+  { id: "p2", num: 2, texto: "Qual o seu papel hoje?", tipo: "multipla" },
   { id: "p3", num: 3, texto: "De qual rede você participa?", tipo: "unica" },
   { id: "p4", num: 4, texto: "Há quanto tempo você frequenta a 1B?", tipo: "unica" },
   { id: "p5", num: 5, texto: "Qual frase descreve melhor o seu momento de vida?", tipo: "unica" },

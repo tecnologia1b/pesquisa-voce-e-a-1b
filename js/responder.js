@@ -19,7 +19,7 @@ let uid = null, statusPesquisa = null, docCarregado = false, enviando = false, p
 
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const vis = () => Q.filter((q) => { if (!q.se) return true; const v = A[q.se[0]]; return v != null && q.se[1].includes(v); });
+const vis = () => Q.filter((q) => { if (!q.se) return true; const v = A[q.se[0]]; if (v == null) return false; return Array.isArray(v) ? v.some((x) => q.se[1].includes(x)) : q.se[1].includes(v); });
 function limpar() { Q.forEach((q) => { if (q.se && !vis().includes(q)) delete A[q.id]; }); }
 const escalaHTML = (lb, sel) => `<div class="opcs">` + [1, 2, 3, 4, 5].map((n) => `<button class="opc ${sel === n ? "on" : ""}" role="radio" aria-checked="${sel === n}" data-n="${n}"><span class="n">${n}</span>${esc(lb[n])}</button>`).join("") + `</div>`;
 
