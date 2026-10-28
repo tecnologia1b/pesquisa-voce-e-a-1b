@@ -5,7 +5,7 @@ export const LIDER=["Líder ou auxiliar de PGM","Supervisor","Coordenador"];
 export const Q=[
  // Quem é você
  {id:"p1",s:"Quem é você",t:"unica",q:"Qual a sua idade?",o:["12 a 14","15 a 17","18 a 24","25 a 29","30 a 44","45+"]},
- {id:"p2",s:"Quem é você",t:"multipla",q:"Qual o seu papel hoje?",i:"Pode marcar mais de um.",o:["Frequento os cultos","Participo de PGM","Líder ou auxiliar de PGM","Supervisor","Coordenador","Pastor"]},
+ {id:"p2",s:"Quem é você",t:"unica",q:"Qual o seu papel hoje?",i:"Marque o mais alto.",o:["Frequento os cultos","Participo de PGM","Líder ou auxiliar de PGM","Supervisor","Coordenador","Pastor"]},
  {id:"p3",s:"Quem é você",t:"unica",q:"De qual rede você participa?",o:["Livres","Flow","Outra","Não participo"]},
  {id:"p4",s:"Quem é você",t:"unica",q:"Há quanto tempo você frequenta a 1B?",o:["Menos de 1 ano","1 a 3 anos","4 a 10 anos","11 a 15 anos","Mais de 15 anos"]},
  {id:"p5",s:"Quem é você",t:"unica",q:"Qual frase descreve melhor o seu momento de vida?",o:["Estou na escola","Estou na faculdade ou cursinho","Estou começando a trabalhar","Trabalho e já tenho carreira","Casei ou formei família recentemente","Outro momento"]},

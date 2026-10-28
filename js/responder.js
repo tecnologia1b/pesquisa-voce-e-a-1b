@@ -121,7 +121,7 @@ function render() {
 
   corpo.querySelectorAll(".opc[data-o]").forEach((b) => (b.onclick = () => {
     const o = b.dataset.o;
-    if (q.t === "unica") { A[q.id] = o; limpar(); salvar(); render(); return; }
+    if (q.t === "unica") { A[q.id] = o; limpar(); if (!ultimo) { pos++; sub = 0; } salvar(); render(); return; }
     let s = (A[q.id] || []).slice();
     if (s.includes(o)) s = s.filter((x) => x !== o);
     else { const ex = q.ex || []; if (ex.includes(o)) s = [o]; else { s = s.filter((x) => !ex.includes(x)); if (q.max && s.length >= q.max) return; s.push(o); } }

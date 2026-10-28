@@ -61,7 +61,8 @@ service cloud.firestore {
     }
 
     match /contador/total {
-      allow get: if ehOperador();
+      // participante precisa ler o valor atual pra incrementar na transação do envio final
+      allow get: if request.auth != null;
       // incremento de 1 em 1, nunca decrementa nem muda pra outro valor
       allow update: if request.resource.data.n == resource.data.n + 1 &&
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(["n"]);
